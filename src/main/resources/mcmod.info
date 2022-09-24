@@ -1,0 +1,16 @@
+[
+  {
+    "modid": "spark",
+    "name": "Spark",
+    "description": "A client base",
+    "version": "1.0.0",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/Sxmurai/spark",
+    "updateUrl": "https://github.com/Sxmurai/spark",
+    "authorList": ["Aesthetical"],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]

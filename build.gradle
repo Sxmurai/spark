@@ -1,0 +1,102 @@
+buildscript {
+    repositories {
+        mavenCentral()
+
+        maven { url 'https://repo.spongepowered.org/maven' }
+        maven { url 'https://files.minecraftforge.net/maven' }
+    }
+
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3.4'
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'org.spongepowered.mixin'
+
+version = '1.0.0'
+group = 'wtf.spark'
+archivesBaseName = 'Spark'
+
+sourceCompatibility = targetCompatibility = '1.8'
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+    options.encoding 'UTF-8'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "jitpack.io"
+        url = "https://jitpack.io"
+    }
+    maven { url 'https://repo.spongepowered.org/maven' }
+}
+
+minecraft {
+    version = '1.12.2-14.23.5.2847'
+    runDir = 'run'
+    mappings = 'stable_39'
+    makeObfSourceJar = false
+    clientJvmArgs += '-Dfml.coreMods.load=wtf.spark.asm.SparkLoadingPlugin'
+    // clientRunArgs += '--mixin mixins.spark.json'
+}
+
+mixin {
+
+    defaultObfuscationEnv searge
+    sourceSets {
+        main {
+            ext.refMap = 'mixins.spark.refmap.json'
+        }
+    }
+}
+
+configurations {
+    embed
+    implementation.extendsFrom embed
+
+    all {
+        resolutionStrategy {
+            force 'org.lwjgl.lwjgl:lwjgl-platform:2.9.4-nightly-20150209'
+        }
+    }
+}
+
+dependencies {
+    embed('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
+        exclude module: 'launchwrapper'
+        exclude module: 'guava'
+        exclude module: 'gson'
+        exclude module: 'commons-io'
+        exclude module: 'log4j-core'
+    }
+
+    annotationProcessor("org.spongepowered:mixin:0.8.2:processor") {
+        exclude module: 'gson'
+    }
+
+    embed "com.github.therealbush:eventbus:1.0.2"
+    embed "com.github.litarvan:OpenAuth:1.1.2"
+}
+
+jar {
+    from(configurations.embed.collect {
+        it.isDirectory() ? it : zipTree(it)
+    }) {
+        exclude 'dummyThing',
+                'LICENSE.txt',
+                'META-INF/MUMFREY.RSA',
+                'META-INF/maven/**',
+                'org/**/*.html'
+    }
+
+    manifest.attributes(
+            'FMLCorePlugin': 'wtf.spark.asm.SparkLoadingPlugin',
+            //'FMLCorePluginContainsFMLMod': 'true',
+            'ForceLoadAsMod': 'true' 
+            // 'FMLAT': 'spark_at.cfg'
+    )
+}

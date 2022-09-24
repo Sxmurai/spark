@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.7-SNAPSHOT",
+  "compatibilityLevel": "JAVA_8",
+  "package": "wtf.spark.asm.mixins.forge",
+  "refmap": "mixins.spark.refmap.json",
+  "mixins": [
+    "render.MixinGuiInGameForge"
+  ],
+  "injectors": {
+    "maxShiftBy": 10
+  }
+}

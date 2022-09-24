@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.7-SNAPSHOT",
+  "compatibilityLevel": "JAVA_8",
+  "package": "wtf.spark.asm.mixins.vanilla",
+  "refmap": "mixins.spark.refmap.json",
+  "mixins": [
+    "MixinMinecraft",
+    "net.MixinNetworkManager"
+  ],
+  "injectors": {
+    "maxShiftBy": 10
+  }
+}
