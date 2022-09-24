@@ -5,12 +5,15 @@ import net.minecraft.client.Minecraft;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
+import wtf.spark.impl.account.AccountManager;
 import wtf.spark.impl.command.CommandManager;
 import wtf.spark.impl.config.ConfigManager;
 import wtf.spark.impl.module.ModuleManager;
 import wtf.spark.util.core.timing.Timer;
 
 import java.io.File;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class Spark {
 
@@ -22,11 +25,14 @@ public class Spark {
     public static final Logger LOGGER = LogManager.getLogger(NAME);
     public static final EventBus BUS = new EventBus();
 
+    public static final Executor SPARK_EXECUTOR = Executors.newScheduledThreadPool(1);
+
     public static File DATA_DIR;
 
     private ConfigManager configManager;
     private ModuleManager moduleManager;
     private CommandManager commandManager;
+    private AccountManager accountManager;
 
     public Spark() {
         if (INSTANCE != null) {
@@ -49,6 +55,7 @@ public class Spark {
         configManager = new ConfigManager();
         moduleManager = new ModuleManager();
         commandManager = new CommandManager();
+        accountManager = new AccountManager();
 
         LOGGER.info("Loaded {} v{} in {}ms", NAME, VERSION, (timer.getTimePassed() / Timer.NS_MS));
 
@@ -67,6 +74,10 @@ public class Spark {
 
     public ConfigManager getConfigManager() {
         return configManager;
+    }
+
+    public AccountManager getAccountManager() {
+        return accountManager;
     }
 
     public static Spark getInstance() {

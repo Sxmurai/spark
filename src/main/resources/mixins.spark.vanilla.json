@@ -6,6 +6,7 @@
   "refmap": "mixins.spark.refmap.json",
   "mixins": [
     "MixinMinecraft",
+    "render.MixinGuiMainMenu",
     "net.MixinNetworkManager"
   ],
   "injectors": {
