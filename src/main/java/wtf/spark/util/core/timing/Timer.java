@@ -11,7 +11,7 @@ public class Timer {
 
     public boolean hasPassed(long t, boolean reset) {
 
-        boolean hasPassed = (getTimePassed() / NS_MS) <= t;
+        boolean hasPassed = (getTimePassed() / NS_MS) >= t;
         if (hasPassed && reset) {
             resetTime();
         }
