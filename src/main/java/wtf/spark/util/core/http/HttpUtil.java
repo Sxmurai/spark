@@ -18,9 +18,4 @@ public class HttpUtil {
             e.printStackTrace();
         }
     }
-
-    @FunctionalInterface
-    public interface HTTPHandler {
-        void run(HttpURLConnection connection) throws IOException;
-    }
 }
