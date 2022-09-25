@@ -15,9 +15,9 @@ import wtf.spark.impl.event.PacketEvent;
 @Mixin(NetworkManager.class)
 public class MixinNetworkManager {
 
-    @Inject(method = "dispatchPacket", at = @At("HEAD"), cancellable = true)
-    public void dispatchPacket(Packet<?> inPacket, GenericFutureListener<? extends Future<? super Void>>[] futureListeners, CallbackInfo info) {
-        if (Spark.BUS.post(new PacketEvent(PacketEvent.Direction.CLIENT, inPacket))) {
+    @Inject(method = "sendPacket(Lnet/minecraft/network/Packet;)V", at = @At("HEAD"), cancellable = true)
+    public void dispatchPacket(Packet<?> packetIn, CallbackInfo info) {
+        if (Spark.BUS.post(new PacketEvent(PacketEvent.Direction.CLIENT, packetIn))) {
             info.cancel();
         }
     }

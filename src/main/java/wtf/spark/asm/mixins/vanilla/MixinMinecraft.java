@@ -5,8 +5,10 @@ import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.main.GameConfiguration;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.util.Session;
+import net.minecraft.util.Timer;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.Display;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -29,10 +31,17 @@ public class MixinMinecraft implements IMinecraft {
     @Mutable
     @Shadow @Final private Session session;
 
+    @Shadow @Final private Timer timer;
+
     @Inject(method = "<init>", at = @At("RETURN"))
     private void init(GameConfiguration gameConfig, CallbackInfo info) {
         LOGGER.info("Loading " + Spark.NAME + " v" + Spark.VERSION);
         new Spark();
+    }
+
+    @Inject(method = "createDisplay", at = @At("RETURN"))
+    public void createDisplay(CallbackInfo info) {
+        Display.setTitle(Spark.NAME + " v" + Spark.VERSION);
     }
 
     @Inject(
@@ -55,5 +64,10 @@ public class MixinMinecraft implements IMinecraft {
     @Override
     public void setSession(Session session) {
         this.session = session;
+    }
+
+    @Override
+    public void setTimerSpeed(float speed) {
+        ((ITimer) timer).setTickLength(50.0f / speed);
     }
 }

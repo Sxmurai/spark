@@ -5,9 +5,14 @@
   "package": "wtf.spark.asm.mixins.vanilla",
   "refmap": "mixins.spark.refmap.json",
   "mixins": [
+    "ITimer",
     "MixinMinecraft",
+    "entity.player.MixinEntityPlayerSP",
+    "entity.MixinEntity",
     "render.MixinGuiChat",
     "render.MixinGuiMainMenu",
+    "net.packet.s2c.ISPacketPlayerPosLook",
+    "net.IMixinNetworkManager",
     "net.MixinNetworkManager"
   ],
   "injectors": {

@@ -29,7 +29,7 @@ public class SparkLoadingPlugin implements IFMLLoadingPlugin {
         }
 
         try {
-            Class.forName("net.minecraftforge.fml.common.Loader");
+            Class.forName("net.minecraftforge.classloading.FMLForgePlugin");
             FORGE_LOADED = true;
             Spark.LOGGER.info("Detected FML");
             Mixins.addConfiguration("mixins.spark.forge.json");

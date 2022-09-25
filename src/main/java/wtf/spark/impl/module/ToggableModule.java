@@ -1,15 +1,15 @@
 package wtf.spark.impl.module;
 
-import org.lwjgl.input.Keyboard;
 import wtf.spark.core.Spark;
+import wtf.spark.impl.keybind.Keybind;
 
 public class ToggableModule extends Module {
     private boolean running = false;
-    private int keyBind = Keyboard.KEY_NONE;
     private boolean drawn = true;
 
     public ToggableModule(String name, String[] aliases, ModuleCategory category) {
         super(name, aliases, category);
+        Spark.getInstance().getKeybindManager().create(name);
     }
 
     protected void onEnable() {
@@ -36,12 +36,8 @@ public class ToggableModule extends Module {
         }
     }
 
-    public int getKeyBind() {
-        return keyBind;
-    }
-
-    public void setKeyBind(int keyBind) {
-        this.keyBind = keyBind;
+    public Keybind getKeybind() {
+        return Spark.getInstance().getKeybindManager().get(getName());
     }
 
     public boolean isDrawn() {

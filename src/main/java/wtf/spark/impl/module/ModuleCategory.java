@@ -1,10 +1,16 @@
 package wtf.spark.impl.module;
 
 public enum ModuleCategory {
-    ACTIVE,
-    COMBAT,
-    MISCELLANEOUS,
-    MOVEMENT,
-    RENDER,
-    WORLD
+    COMBAT("Combat"),
+    MISCELLANEOUS("Miscellaneous"),
+    MOVEMENT("Movement"),
+    RENDER("Render"),
+    WORLD("World"),
+    ACTIVE("Always Active");
+
+    public final String displayName;
+
+    ModuleCategory(String displayName) {
+        this.displayName = displayName;
+    }
 }

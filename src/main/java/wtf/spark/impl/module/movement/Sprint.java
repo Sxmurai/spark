@@ -9,7 +9,6 @@ import wtf.spark.impl.module.ToggableModule;
 public class Sprint extends ToggableModule {
     public Sprint() {
         super("Sprint", new String[]{"autosprint", "sprinter"}, ModuleCategory.MOVEMENT);
-        setKeyBind(Keyboard.KEY_H);
     }
 
     @EventListener

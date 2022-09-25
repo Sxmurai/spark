@@ -8,6 +8,8 @@ import org.lwjgl.opengl.Display;
 import wtf.spark.impl.account.AccountManager;
 import wtf.spark.impl.command.CommandManager;
 import wtf.spark.impl.config.ConfigManager;
+import wtf.spark.impl.keybind.KeybindManager;
+import wtf.spark.impl.manager.TickManager;
 import wtf.spark.impl.module.ModuleManager;
 import wtf.spark.util.core.timing.Timer;
 
@@ -30,9 +32,11 @@ public class Spark {
     public static File DATA_DIR;
 
     private ConfigManager configManager;
+    private KeybindManager keybindManager;
     private ModuleManager moduleManager;
     private CommandManager commandManager;
     private AccountManager accountManager;
+    private TickManager tickManager;
 
     public Spark() {
         if (INSTANCE != null) {
@@ -53,15 +57,15 @@ public class Spark {
         }
 
         configManager = new ConfigManager();
+        keybindManager = new KeybindManager();
         moduleManager = new ModuleManager();
         commandManager = new CommandManager();
         accountManager = new AccountManager();
+        tickManager = new TickManager();
 
         LOGGER.info("Loaded {} v{} in {}ms", NAME, VERSION, (timer.getTimePassed() / Timer.NS_MS));
 
         configManager.load();
-
-        Display.setTitle(NAME + " v" + VERSION);
     }
 
     public ModuleManager getModuleManager() {
@@ -76,8 +80,16 @@ public class Spark {
         return configManager;
     }
 
+    public KeybindManager getKeybindManager() {
+        return keybindManager;
+    }
+
     public AccountManager getAccountManager() {
         return accountManager;
+    }
+
+    public TickManager getTickManager() {
+        return tickManager;
     }
 
     public static Spark getInstance() {

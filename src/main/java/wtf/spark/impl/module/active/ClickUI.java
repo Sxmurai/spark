@@ -8,7 +8,7 @@ import wtf.spark.impl.module.active.ui.UIScreen;
 public class ClickUI extends ToggableModule {
     public ClickUI() {
         super("Click UI", new String[]{"clickui", "clickgui", "ui"}, ModuleCategory.ACTIVE);
-        setKeyBind(Keyboard.KEY_EQUALS);
+        getKeybind().setCode(Keyboard.KEY_EQUALS);
     }
 
     @Override

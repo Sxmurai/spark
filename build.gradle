@@ -80,6 +80,8 @@ dependencies {
 
     embed "com.github.therealbush:eventbus:1.0.2"
     embed "com.github.litarvan:OpenAuth:1.1.2"
+
+    implementation configurations.embed
 }
 
 jar {
@@ -94,9 +96,11 @@ jar {
     }
 
     manifest.attributes(
+            'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
             'FMLCorePlugin': 'wtf.spark.asm.SparkLoadingPlugin',
-            //'FMLCorePluginContainsFMLMod': 'true',
-            'ForceLoadAsMod': 'true' 
+            'FMLCorePluginContainsFMLMod': 'true',
+            'ForceLoadAsMod': 'true',
+            'MixinConfigs': 'mixins.spark.vanilla.json, mixins.spark.forge.json'
             // 'FMLAT': 'spark_at.cfg'
     )
 }

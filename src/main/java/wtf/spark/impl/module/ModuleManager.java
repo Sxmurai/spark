@@ -1,13 +1,10 @@
 package wtf.spark.impl.module;
 
-import me.bush.eventbus.annotation.EventListener;
-import net.minecraft.util.text.TextComponentString;
-import org.lwjgl.input.Keyboard;
 import wtf.spark.core.Spark;
-import wtf.spark.impl.event.KeyInputEvent;
 import wtf.spark.impl.module.active.ClickUI;
 import wtf.spark.impl.module.active.HUD;
 import wtf.spark.impl.module.miscellaneous.AntiCrash;
+import wtf.spark.impl.module.movement.PacketFlight;
 import wtf.spark.impl.module.movement.Sprint;
 import wtf.spark.util.core.ClientImpl;
 
@@ -28,22 +25,8 @@ public class ModuleManager implements ClientImpl {
         add(new ClickUI());
         add(new HUD());
         add(new AntiCrash());
+        add(new PacketFlight());
         add(new Sprint());
-
-
-    }
-
-    @EventListener
-    public void onKeyInput(KeyInputEvent event) {
-        if (mc.currentScreen == null && event.getKeyCode() != Keyboard.KEY_NONE && !event.isState()) {
-
-            toggableModuleList.forEach((module) -> {
-
-                if (module.getKeyBind() == event.getKeyCode()) {
-                    module.setRunning(!module.isRunning());
-                }
-            });
-        }
     }
 
     private void add(Module module) {
@@ -52,6 +35,11 @@ public class ModuleManager implements ClientImpl {
 
         if (module instanceof ToggableModule) {
             toggableModuleList.add((ToggableModule) module);
+            ((ToggableModule) module).getKeybind().setAction((s) -> {
+                if (mc.currentScreen == null) {
+                    ((ToggableModule) module).setRunning(!((ToggableModule) module).isRunning());
+                }
+            });
         } else {
 
             // automatically register "always active" modules to the event bus

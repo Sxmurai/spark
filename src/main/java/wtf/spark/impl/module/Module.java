@@ -1,11 +1,11 @@
 package wtf.spark.impl.module;
 
-import wtf.spark.core.Spark;
+import wtf.spark.impl.property.PropertyContainer;
 import wtf.spark.util.core.ClientImpl;
 import wtf.spark.util.core.Labeled;
 import wtf.spark.util.core.Printable;
 
-public class Module implements Labeled, ClientImpl, Printable {
+public class Module extends PropertyContainer implements Labeled, Printable, ClientImpl {
     private final String name;
     private final String[] aliases;
     private final ModuleCategory category;
