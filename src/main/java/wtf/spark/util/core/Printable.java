@@ -16,7 +16,7 @@ public interface Printable {
         );
     }
 
-    default void print(int id, String message) {
+    default void print(String message, int id) {
         Minecraft.getMinecraft().ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(
                 new TextComponentString(PREFIX)
                         .setStyle(new Style().setColor(TextFormatting.GRAY))
